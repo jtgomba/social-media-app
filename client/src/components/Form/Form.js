@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import { TextField, Button, Typography, Paper } from "@material-ui/core";
-import FileBase from "react-file-base64";
+import FileBase64 from "react-file-base64";
+import { useDispatch } from "react-redux";
 
 import useStyles from "./styles";
+import { createPost } from "../../actions/posts";
 
 const Form = () => {
   const [postData, setPostData] = useState({
@@ -13,15 +15,21 @@ const Form = () => {
     selectedFile: "",
   });
   const classes = useStyles();
+  const dispatch = useDispatch();
 
-  const handleSubmit = () => {};
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    dispatch(createPost(postData));
+  };
+
+  const clear = () => {};
 
   return (
     <Paper className={classes.paper}>
       <form
-        autocomplete="off"
+        autoComplete="off"
         noValidate
-        className={classes.form}
+        className={`${classes.root} ${classes.form}`}
         onSubmit={handleSubmit}>
         <Typography variant="h6">Creating a Memory</Typography>
         <TextField
@@ -61,14 +69,31 @@ const Form = () => {
           onChange={(e) => setPostData({ ...postData, tags: e.target.value })}
         />
         <div className={classes.fileInput}>
-          <FileBase
+          <FileBase64
             type="file"
-            multiple="false"
+            multiple={false}
             onDone={({ base64 }) =>
               setPostData({ ...postData, selectedFile: base64 })
             }
           />
         </div>
+        <Button
+          className={classes.buttonSubmit}
+          variant="contained"
+          color="primary"
+          size="large"
+          type="submit"
+          fullWidth>
+          Submit
+        </Button>
+        <Button
+          variant="contained"
+          color="secondary"
+          size="small"
+          onClick={clear}
+          fullWidth>
+          Clear
+        </Button>
       </form>
     </Paper>
   );
