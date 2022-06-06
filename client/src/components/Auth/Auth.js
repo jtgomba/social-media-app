@@ -41,7 +41,7 @@ const Auth = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (isSignup) {
+    if (!isSignup) {
       dispatch(signin(formData, history));
     } else {
       dispatch(signup(formData, history));
@@ -53,7 +53,7 @@ const Auth = () => {
 
   const switchMode = () => {
     setIsSignup((prevIsSignup) => !prevIsSignup);
-    handleShowPassword(false);
+    setShowPassword(false);
   };
 
   const login = useGoogleLogin({
@@ -63,10 +63,10 @@ const Auth = () => {
           headers: { Authorization: `Bearer ${tokenResponse.access_token}` },
         })
         .then((res) => res.data);
-      const tokenId = tokenResponse?.access_token;
+      const token = tokenResponse?.access_token;
 
       try {
-        dispatch({ type: "AUTH", data: { result, tokenId } });
+        dispatch({ type: "AUTH", data: { result, token } });
 
         history.push("/");
       } catch (error) {
