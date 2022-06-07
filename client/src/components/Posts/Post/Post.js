@@ -67,7 +67,7 @@ const Post = ({ post, setCurrentId }) => {
           {moment(post.createdAt).fromNow()}
         </Typography>
       </div>
-      {(user?.result?.googleId === post?.creator ||
+      {(user?.result?.sub === post?.creator ||
         user?.result?._id === post?.creator) && (
         <div className={classes.overlay2}>
           <Button
@@ -103,7 +103,7 @@ const Post = ({ post, setCurrentId }) => {
           onClick={() => dispatch(likePost(post._id))}>
           <Likes />
         </Button>
-        {(user?.result?.googleId === post?.creator ||
+        {(user?.result?.sub === post?.creator ||
           user?.result?._id === post?.creator) && (
           <Button
             size="small"
