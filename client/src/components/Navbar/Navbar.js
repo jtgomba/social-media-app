@@ -23,11 +23,11 @@ const Navbar = () => {
   useEffect(() => {
     const token = user?.token;
 
-    /*     if (token) {
+    if (token) {
       const decodedToken = decode(token);
       if (decodedToken.exp * 1000 < new Date().getTime()) logout();
     }
- */
+
     setUser(JSON.parse(localStorage.getItem("profile")));
   }, [location]);
 
@@ -55,7 +55,7 @@ const Navbar = () => {
             <Avatar
               className={classes.purple}
               alt={user.result.name}
-              src={user.result.imageUrl}>
+              src={user.result?.imageUrl}>
               {user.result.name.charAt(0)}
             </Avatar>
             <Typography className={classes.userName} variant="h6">
