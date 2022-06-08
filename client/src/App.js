@@ -19,7 +19,7 @@ const App = () => {
   return (
     <GoogleOAuthProvider clientId="762279673953-voqbc9f1s7mqc50gou0dhevtqsgsi623.apps.googleusercontent.com">
       <Router>
-        <Container maxwidth="xl">
+        <Container maxWidth="xl">
           <Navbar />
           <Switch>
             <Route path="/" exact component={() => <Redirect to="/posts" />} />

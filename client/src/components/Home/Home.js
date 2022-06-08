@@ -32,14 +32,21 @@ const Home = () => {
   const history = useHistory();
   const page = query.get("page") || 1;
   const searchQuery = query.get("searchQuery");
+  const [search, setSearch] = useState("");
 
   useEffect(() => {
     dispatch(getPosts());
   }, [currentId, dispatch]);
 
+  const handleKeyPress = (e) => {
+    if (e.keyCode === 13) {
+      // search for post
+    }
+  };
+
   return (
     <Grow in>
-      <Container maxwidth="xl">
+      <Container maxWidth="xl">
         <Grid
           container
           className={classes.gridContainer}
@@ -58,9 +65,10 @@ const Home = () => {
                 name="search"
                 variant="outlined"
                 label="Search Memories"
+                onKeyPress={handleKeyPress}
                 fullWidth
-                value="TEST"
-                onChange={() => {}}
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
               />
             </AppBar>
             <Form currentId={currentId} setCurrentId={setCurrentId} />
