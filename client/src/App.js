@@ -29,7 +29,13 @@ const App = () => {
             <Route
               path="/auth"
               exact
-              component={() => (!user ? <Auth /> : <Redirect to="/posts" />)}
+              component={() =>
+                !localStorage.getItem("profile") ? (
+                  <Auth />
+                ) : (
+                  <Redirect to="/posts" />
+                )
+              }
             />
           </Switch>
         </Container>
