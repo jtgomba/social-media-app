@@ -10,6 +10,13 @@ export const getPosts = async (req, res) => {
   }
 };
 
+export const getPostBySearch = async (req, res) => {
+  try {
+  } catch (error) {
+    res.status(404).json({ message: error.message });
+  }
+};
+
 export const createPost = async (req, res) => {
   const post = req.body;
 
