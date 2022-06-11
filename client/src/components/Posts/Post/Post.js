@@ -14,6 +14,7 @@ import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
 import ThumbUpAltOutlined from "@material-ui/icons/ThumbUpAltOutlined";
 import { useDispatch } from "react-redux";
 import moment from "moment";
+import { useHistory } from "react-router-dom";
 
 import { likePost, deletePost } from "../../../actions/posts";
 import useStyles from "./styles";
@@ -22,6 +23,7 @@ const Post = ({ post, setCurrentId }) => {
   const dispatch = useDispatch();
   const classes = useStyles();
   const user = JSON.parse(localStorage.getItem("profile"));
+  const history = useHistory();
 
   const Likes = () => {
     if (post.likes.length > 0) {
@@ -51,10 +53,13 @@ const Post = ({ post, setCurrentId }) => {
     );
   };
 
-  const openPost = () => {};
+  const openPost = () => history.push(`/posts/${post._id}`);
   return (
     <Card className={classes.card} raised elevation={6}>
-      <ButtonBase className={classes.cardAction} onClick={openPost}>
+      <ButtonBase
+        component="span"
+        className={classes.cardAction}
+        onClick={openPost}>
         <CardMedia
           className={classes.media}
           image={
@@ -73,7 +78,9 @@ const Post = ({ post, setCurrentId }) => {
           user?.result?._id === post?.creator) && (
           <div className={classes.overlay2}>
             <Button
-              onClick={() => setCurrentId(post._id)}
+              onClick={() => {
+                setCurrentId(post._id);
+              }}
               style={{ color: "white" }}
               size="small">
               <MoreHorizIcon fontSize="medium" />
@@ -111,7 +118,10 @@ const Post = ({ post, setCurrentId }) => {
           <Button
             size="small"
             color="secondary"
-            onClick={() => dispatch(deletePost(post._id))}>
+            onClick={() => {
+              dispatch(deletePost(post._id));
+              history.go(0);
+            }}>
             <DeleteIcon fontSize="small" /> Delete
           </Button>
         )}

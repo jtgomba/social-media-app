@@ -12,7 +12,7 @@ import { useDispatch } from "react-redux";
 import { useHistory, useLocation } from "react-router-dom";
 import ChipInput from "material-ui-chip-input";
 
-import { getPosts, getPostBySearch } from "../../actions/posts";
+import { getPosts, getPostsBySearch } from "../../actions/posts";
 
 import Form from "../Form/Form";
 import Posts from "../Posts/Posts";
@@ -36,7 +36,7 @@ const Home = () => {
   const [tags, setTags] = useState([]);
   const searchPost = () => {
     if (search.trim() || tags) {
-      dispatch(getPostBySearch({ search, tags: tags.join(",") }));
+      dispatch(getPostsBySearch({ search, tags: tags.join(",") }));
       history.push(
         `/posts/search?searchQuery=${search || "none"}&tags=${tags.join(",")}`
       );
