@@ -43,6 +43,16 @@ export default (state = { isLoading: true, posts: [] }, action) => {
         ...state,
         posts: state.posts.filter((post) => post._id !== action.payload._id),
       };
+    case COMMENT:
+      return {
+        ...state,
+        posts: state.posts.map((post) => {
+          if (post._id === action.payload._id) {
+            return action.payload;
+          }
+          return post;
+        }),
+      };
     default:
       return state;
   }
