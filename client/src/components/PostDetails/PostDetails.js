@@ -4,15 +4,16 @@ import {
   Typography,
   CircularProgress,
   Divider,
-} from "@material-ui/core";
+} from "@material-ui/core/";
 import { useDispatch, useSelector } from "react-redux";
 import moment from "moment";
-import { useParams, useHistory } from "react-router-dom";
-import { getPost, getPostsBySearch } from "../../actions/posts";
+import { useParams, useHistory, Link } from "react-router-dom";
 
+import { getPost, getPostsBySearch } from "../../actions/posts";
+import CommentSection from "./CommentSection";
 import useStyles from "./styles";
 
-const PostDetails = () => {
+const Post = () => {
   const { post, posts, isLoading } = useSelector((state) => state.posts);
   const dispatch = useDispatch();
   const history = useHistory();
@@ -33,9 +34,11 @@ const PostDetails = () => {
 
   if (!post) return null;
 
+  const openPost = (_id) => history.push(`/posts/${_id}`);
+
   if (isLoading) {
     return (
-      <Paper className={classes.loadingPaper} elevation={6}>
+      <Paper elevation={6} className={classes.loadingPaper}>
         <CircularProgress size="7em" />
       </Paper>
     );
@@ -43,10 +46,8 @@ const PostDetails = () => {
 
   const recommendedPosts = posts.filter(({ _id }) => _id !== post._id);
 
-  const openPost = (_id) => history.push(`/posts/${_id}`);
-
   return (
-    <Paper elevation={6} style={{ padding: "20px", borderRadius: "15px" }}>
+    <Paper style={{ padding: "20px", borderRadius: "15px" }} elevation={6}>
       <div className={classes.card}>
         <div className={classes.section}>
           <Typography variant="h3" component="h2">
@@ -57,12 +58,26 @@ const PostDetails = () => {
             variant="h6"
             color="textSecondary"
             component="h2">
-            {post.tags.map((tag) => `#${tag} `)}
+            {post.tags.map((tag, i) => (
+              <Link
+                key={i}
+                to={`/tags/${tag}`}
+                style={{ textDecoration: "none", color: "#3f51b5" }}>
+                {` #${tag} `}
+              </Link>
+            ))}
           </Typography>
           <Typography gutterBottom variant="body1" component="p">
             {post.message}
           </Typography>
-          <Typography variant="h6">Created by: {post.name}</Typography>
+          <Typography variant="h6">
+            Created by:
+            <Link
+              to={`/creators/${post.name}`}
+              style={{ textDecoration: "none", color: "#3f51b5" }}>
+              {` ${post.name}`}
+            </Link>
+          </Typography>
           <Typography variant="body1">
             {moment(post.createdAt).fromNow()}
           </Typography>
@@ -71,9 +86,7 @@ const PostDetails = () => {
             <strong>Realtime Chat - coming soon!</strong>
           </Typography>
           <Divider style={{ margin: "20px 0" }} />
-          <Typography variant="body1">
-            <strong>Comments - coming soon!</strong>
-          </Typography>
+          <CommentSection post={post} />
           <Divider style={{ margin: "20px 0" }} />
         </div>
         <div className={classes.imageSection}>
@@ -87,7 +100,7 @@ const PostDetails = () => {
           />
         </div>
       </div>
-      {recommendedPosts.length && (
+      {!!recommendedPosts.length && (
         <div className={classes.section}>
           <Typography gutterBottom variant="h5">
             You might also like:
@@ -95,11 +108,11 @@ const PostDetails = () => {
           <Divider />
           <div className={classes.recommendedPosts}>
             {recommendedPosts.map(
-              ({ title, message, name, likes, selectedFile, _id }) => (
+              ({ title, name, message, likes, selectedFile, _id }) => (
                 <div
-                  key={_id}
                   style={{ margin: "20px", cursor: "pointer" }}
-                  onClick={() => openPost(_id)}>
+                  onClick={() => openPost(_id)}
+                  key={_id}>
                   <Typography gutterBottom variant="h6">
                     {title}
                   </Typography>
@@ -123,4 +136,4 @@ const PostDetails = () => {
   );
 };
 
-export default PostDetails;
+export default Post;
