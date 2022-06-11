@@ -73,7 +73,7 @@ const Post = () => {
           <Typography variant="h6">
             Created by:
             <Link
-              to={`/creators/${post.name}`}
+              to={`/creator/${post.name}`}
               style={{ textDecoration: "none", color: "#3f51b5" }}>
               {` ${post.name}`}
             </Link>

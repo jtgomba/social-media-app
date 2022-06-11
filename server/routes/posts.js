@@ -9,11 +9,13 @@ import {
   likePost,
   getPost,
   commentPost,
+  getPostsByCreator,
 } from "../controllers/posts.js";
 import auth from "../middleware/auth.js";
 
 const router = express.Router();
 
+router.get("/creator", getPostsByCreator);
 router.get("/", getPosts);
 router.get("/search", getPostsBySearch);
 router.get("/:id", getPost);
