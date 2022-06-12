@@ -16,7 +16,7 @@ import { getPosts, getPostsBySearch } from "../../actions/posts";
 
 import Form from "../Form/Form";
 import Posts from "../Posts/Posts";
-import Pagination from "../Pagination";
+import Pagination from "../Pagination/Pagination";
 
 import useStyles from "./styles";
 

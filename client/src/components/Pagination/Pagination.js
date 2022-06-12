@@ -3,7 +3,7 @@ import { Pagination, PaginationItem } from "@material-ui/lab";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
-import { getPosts } from "../actions/posts";
+import { getPosts } from "../../actions/posts";
 
 import useStyles from "./styles";
 
