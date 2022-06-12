@@ -42,7 +42,7 @@ export const getPostsByCreator = (name) => async (dispatch) => {
     const {
       data: { data },
     } = await api.fetchPostsByCreator(name);
-    dispatch({ type: FETCH_BY_CREATOR, payload: { data } });
+    dispatch({ type: FETCH_BY_CREATOR, payload: data });
     dispatch({ type: END_LOADING });
   } catch (error) {
     console.log(error);

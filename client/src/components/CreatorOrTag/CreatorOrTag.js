@@ -16,10 +16,10 @@ const CreatorOrTag = () => {
   useEffect(() => {
     if (location.pathname.startsWith("/tags")) {
       dispatch(getPostsBySearch({ tags: name }));
-    } else if (location.pathname.startsWith("/creator")) {
+    } else {
       dispatch(getPostsByCreator(name));
     }
-  }, [dispatch, location.pathname, name]);
+  }, [dispatch]);
 
   if (!posts.length && !isLoading) return "No posts";
 
