@@ -1,6 +1,6 @@
-# Getting Started with Create React App
+# Social Media App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Social media app where you can upload posts with images that has search and filter capabilities, pagination and authentication. Fully responsive.
 
 ## Available Scripts
 
